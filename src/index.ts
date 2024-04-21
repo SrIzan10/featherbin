@@ -25,7 +25,7 @@ app.post('/paste', async (c) => {
     return c.text('no content provided', 400)
   }
   await c.env.featherbin.put(id, content)
-  return c.json({ id })
+  return c.text(id)
 })
 
 app.get('/paste', async (c) => {
@@ -35,7 +35,7 @@ app.get('/paste', async (c) => {
     return c.text('no content provided', 400)
   }
   await c.env.featherbin.put(id, content)
-  return c.json({ id })
+  return c.text(id)
 })
 
 app.get('/:id', async (c) => {
