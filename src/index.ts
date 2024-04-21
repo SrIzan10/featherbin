@@ -3,6 +3,7 @@ type Bindings = {
 }
 
 import { Hono } from 'hono'
+import { cache } from 'hono/cache';
 const app = new Hono<{ Bindings: Bindings }>()
 
 function randomString(length = 5) {
@@ -13,6 +14,14 @@ function randomString(length = 5) {
   }
   return res
 }
+
+app.get(
+  '*',
+  cache({
+    cacheName: 'featherbin',
+    cacheControl: 'max-age=10800',
+  })
+)
 
 app.get('/', async (c) => {
   return c.text('this is featherbin, create a paste by POSTing or GETting the /paste route with the content in the body or as a query parameter called "data"\nhttps://github.com/SrIzan10/featherbin')
