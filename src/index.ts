@@ -15,7 +15,7 @@ function randomString(length = 5) {
 }
 
 app.get('/', async (c) => {
-  return c.text('this is featherbin, create a paste by POSTing to /paste with the content in the body')
+  return c.text('this is featherbin, create a paste by POSTing to /paste with the content in the body\nhttps://github.com/SrIzan10/featherbin')
 })
 
 app.post('/paste', async (c) => {
