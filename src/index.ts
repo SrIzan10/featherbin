@@ -15,12 +15,15 @@ function randomString(length = 5) {
 }
 
 app.get('/', async (c) => {
-  return c.text('this is featherbin, create a paste by POSTing to /paste with the content in the body\nhttps://github.com/SrIzan10/featherbin')
+  return c.text('this is featherbin, create a paste by POSTing to /paste with the content in the body or as a query parameter called "data"\nhttps://github.com/SrIzan10/featherbin')
 })
 
 app.post('/paste', async (c) => {
   const id = randomString()
-  const content = await c.req.text()
+  const content = await c.req.text() || c.req.query('data')
+  if (!content) {
+    return c.text('no content provided', 400)
+  }
   await c.env.featherbin.put(id, content)
   return c.json({ id })
 })
